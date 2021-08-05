@@ -1,6 +1,6 @@
 import React from "react"
 import Alert from "./alert"
-import delImg from "../images/delete.svg"
+import Form from "./form"
 
 class Menu extends React.Component {
     constructor(props){
@@ -13,8 +13,10 @@ class Menu extends React.Component {
             itemRemoved: "not--display",
             missingItem: "not--display"
         }
+
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
     }
     handleChange(event){
         this.setState({
@@ -42,11 +44,13 @@ class Menu extends React.Component {
                missingItem: "not--display"
             }) 
         },2500)
-        console.log(this.state.submits)
     }
     handleDelete(event){
-        const deleteId = event.target.parentElement.id
-        
+        const deleteId = parseFloat(event.target.parentElement.id)
+        const submitsArr = this.state.submits.filter((item)=> item.id !== deleteId)
+        this.setState({
+            submits: submitsArr
+        })
     }
     render(){
         const Btn = () => {return (<button className="btn" onClick={this.handleDelete}>X</button>)}
@@ -58,12 +62,9 @@ class Menu extends React.Component {
             <div>
                 <Alert itemAdded={itemAdded} itemRemoved={itemRemoved} missingItem={missingItem} />
                 <h1 className="title">Create your own list</h1>
-                <form className="form" onSubmit={e => e.preventDefault()}>
-                    <input className="form__text"type="text" value={this.state.value} onChange={this.handleChange} />
-                    <input className="form__btn"type="submit" value="Submit" onClick={this.handleSubmit} />
-                </form>
-                <ul class="list">
-                    {this.state.submits.map(item => <li className="list__item" id={item.id}>
+                <Form handleChange={this.handleChange} handleSubmit={this.handleSubmit} value={this.state.value} />
+                <ul className="list">
+                    {this.state.submits.map(item => <li className="list__item" key={item.id} id={item.id}>
                         {item.currentValue}<Btn /></li>)}
                 </ul>
             </div>
