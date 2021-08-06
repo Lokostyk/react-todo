@@ -1,6 +1,7 @@
 import React from "react"
 import Alert from "./alert"
 import Form from "./form"
+import {Btns} from "./delete-edit"
 
 class Menu extends React.Component {
     constructor(props){
@@ -53,7 +54,7 @@ class Menu extends React.Component {
         })
     }
     render(){
-        const Btn = () => {return (<button className="btn" onClick={this.handleDelete}>X</button>)}
+        const Btn = () => {return (<button className="btn" onClick={this.handleDelete}><Btns btnType={true}/></button>)}
         const itemAdded = this.state.itemAdded
         const itemRemoved = this.state.itemRemoved
         const missingItem = this.state.missingItem

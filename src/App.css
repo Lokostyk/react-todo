@@ -72,6 +72,8 @@ main {
   text-align: start;
 }
 .list__item {
+  display: flex;
+  align-items: center;
   margin: 0.5rem;
   padding-inline-start: 5px;
   list-style: none;
@@ -83,9 +85,9 @@ main {
 }
 .btn {
   padding-top: 0.2rem;
-  float: right;
+  margin-left: auto;
   background-color: inherit;
-  color: red;
   border: none;
   font-size: 1.2rem;
+  z-index: 10;
 }
