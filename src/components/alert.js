@@ -1,16 +1,11 @@
 import React from "react"
 
 class Alert extends React.Component {
-    constructor(props){
-        super(props)
-    }
     render(){
         return (
-            <div>
-                <div className={this.props.missingItem}>Don't be shy, add something!</div>
-                <p></p>
-                <p></p>
-            </div>
+            <React.Fragment>
+                <div className="alert">{this.props.alertValue}</div>
+            </React.Fragment>
         )
     }
 }
