@@ -9,12 +9,15 @@ class Menu extends React.Component {
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
+        this.handleEdit = this.handleEdit.bind(this)
+        this.handleEditSubmit = this.handleEditSubmit.bind(this)
 
         this.state = {
             value: "",
             submits: [],
             alertValue: "",
-            edit: false
+            edit: false,
+            editItemId: ""
         }
     }
     handleChange(event){
@@ -38,12 +41,7 @@ class Menu extends React.Component {
             })
 
         }
-        //Removing alert after 3 seconds
-        setTimeout(()=>{
-            this.setState({
-                alertValue: ""
-            }) 
-        },3000)
+        this.removeAlert()
     }
     handleDelete(event){
         const deleteId = parseFloat(event.target.parentElement.parentElement.parentElement.id)
@@ -52,18 +50,42 @@ class Menu extends React.Component {
             submits: submitsArr,
             alertValue: "Item deleted!"
         })
+        this.removeAlert()
+    }
+    handleEdit(event){
+        const editId = parseFloat(event.target.parentElement.parentElement.parentElement.id)
+        let editValue = ""
+        this.state.submits.forEach(item => item.id === editId ? editValue = item : "")
+        this.setState({
+            value: editValue.currentValue,
+            edit: true
+        })
+    }
+    handleEditSubmit(){
+        const currentValue = this.state.value
+        const editItemId = this.state.submits.reduce(item => item.currentValue === currentValue ? item : "").id
+        
+    }
+    //Removing alert after 3 seconds
+    removeAlert(){
+        setTimeout(()=>{
+            this.setState({
+                alertValue: ""
+            }) 
+        },3000)
     }
     render(){
         return (
             <div>
                 <Alert alertValue={this.state.alertValue} />
                 <h1 className="title">Create your own list</h1>
-                <Form handleChange={this.handleChange} handleSubmit={this.handleSubmit} value={this.state.value} edit={this.state.edit}/>
+                <Form handleChange={this.handleChange} handleSubmit={this.handleSubmit} value={this.state.value} 
+                edit={this.state.edit} handleEditSubmit={this.handleEditSubmit} />
                 <ul className="list">
                     {this.state.submits.map(item =>{
                         return (<li className="list__item" key={item.id} id={item.id}>
                             {item.currentValue}
-                            <Btns btnType={true} id={item.id} delete={this.handleDelete} edit={"YOO"}/>
+                            <Btns btnType={true} id={item.id} delete={this.handleDelete} handleEdit={this.handleEdit}/>
                         </li>)
                         })
                     }

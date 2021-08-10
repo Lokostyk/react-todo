@@ -4,7 +4,7 @@ class Btns extends React.Component {
     render(){
         return (
             <div>
-                <button className="btn" onClick={this.props.delete}>
+                <button className="btn" onClick={this.props.handleEdit}>
                     <img src="images/edit.svg" alt="Edit button" />
                 </button>
                 <button className="btn" onClick={this.props.delete}>
