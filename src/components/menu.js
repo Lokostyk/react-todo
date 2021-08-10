@@ -48,7 +48,7 @@ class Menu extends React.Component {
         const submitsArr = this.state.submits.filter((item)=> item.id !== deleteId)
         this.setState({
             submits: submitsArr,
-            alertValue: "Item deleted!"
+            alertValue: "Item removed!"
         })
         this.removeAlert()
     }
@@ -58,13 +58,36 @@ class Menu extends React.Component {
         this.state.submits.forEach(item => item.id === editId ? editValue = item : "")
         this.setState({
             value: editValue.currentValue,
-            edit: true
+            edit: true,
+            editItemId: editId
         })
     }
     handleEditSubmit(){
+        const id = this.state.editItemId
         const currentValue = this.state.value
-        const editItemId = this.state.submits.reduce(item => item.currentValue === currentValue ? item : "").id
-        
+        if(currentValue === "" || currentValue === " "){
+            this.setState({
+               alertValue: "Blank? Maybe name of Your pet?"
+            })
+            this.removeAlert()
+        }else {
+        const submitsEditedList = this.state.submits.reduce((result,item)=>{
+            if(id === item.id){
+                const editedItem = {id,currentValue}
+                result.push(editedItem)
+                return result
+            }else{
+                result.push(item)
+                return result
+            }
+        },[])
+        this.setState({
+            value: "",
+            submits: submitsEditedList,
+            alertValue: "Item edited!",
+            edit: false
+        })
+    }
     }
     //Removing alert after 3 seconds
     removeAlert(){

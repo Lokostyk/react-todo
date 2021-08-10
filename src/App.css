@@ -57,11 +57,22 @@ main {
   background-color: rgba(109, 106, 106, 0.3);
 }
 .alert {
-  display: flex;
-  align-content: center;
-  justify-content: center;
+  text-align: center;
+  padding-top: 3px;
   border-radius: 8px;
-  background-color: rgb(86, 86, 245, 0.4);
+  background-color: inherit;
+}
+.red {
+  background-color: rgb(255, 0, 0, 0.5);
+  border-color: red;
+}
+.green {
+  background-color: rgba(0, 168, 0, 0.5);
+  border-color: green;
+}
+.gold {
+  background-color: rgb(255, 230, 0, 0.7);
+  border-color: yellow;
 }
 .list {
   display: flex;
